@@ -1,0 +1,3 @@
+python-dotenv  # call env variable
+pandas
+numpy
