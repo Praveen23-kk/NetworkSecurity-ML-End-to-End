@@ -1,3 +1,0 @@
-[2026-07-24 11:41:33,242] 14 root - INFO - Initiate the data ingestion
-[2026-07-24 11:41:42,255] 68 root - INFO - Performace train test split on the dataframe
-[2026-07-24 11:41:42,255] 70 root - INFO - Exicted split_data_as_train_test method of Data_ingestion class
