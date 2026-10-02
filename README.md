@@ -89,3 +89,14 @@ To trigger the end-to-end ML pipeline (Ingestion, Validation, Transformation, et
 ```bash
 python main.py
 ```
+
+---
+
+## Recent Changes
+- **Model Training wired into the pipeline:** `main.py` now runs `ModelTrainer` after Data Transformation and prints the model trainer artifact.
+- **Model selection:** `ModelTrainer.train_model` compares Random Forest, Decision Tree, Gradient Boosting, Logistic Regression and AdaBoost using hyperparameter grids, picks the best model by score, and saves it (together with the preprocessor, as `NetworkModel`) to the trained-model path.
+- **Metrics:** train and test classification metrics are computed for the best model and returned in `ModelTrainerArtifact`.
+- **`evaluate_models` utility:** new helper in `utils/main_utils/utils.py` that runs `GridSearchCV` (cv=3) per model and reports the test score.
+- **`ModelTrainerConfig` fixed:** corrected parameter and constant names (`training_pipeline_config`, `artifact_dir`, `MODEL_TRAINER_DIR_NAME`, etc.) and the `overfitting_underfitting_threshold` spelling.
+- **Data ingestion fallback:** if MongoDB is unreachable (5s timeout), ingestion falls back to reading `Network_Data/phisingData.csv`.
+- **Logging:** added `networksecurity/logging/logger.py`.
