@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MONGO_DB_URL=os.getenv("MONGO_DB_URL")
+LOCAL_DATA_FILE_PATH=os.path.join("Network_Data","phisingData.csv")
 
 class DataIngestion:
     def __init__(self,data_ingestion_config:DataIngestionConfig):
@@ -35,10 +36,14 @@ class DataIngestion:
         try:
             database_name=self.data_ingestion_config.database_name
             collection_name=self.data_ingestion_config.collection_name
-            self.mongo_client=pymongo.MongoClient(MONGO_DB_URL)
-            collection=self.mongo_client[database_name][collection_name]
-            
-            df=pd.DataFrame(list(collection.find()))
+            try:
+                self.mongo_client=pymongo.MongoClient(MONGO_DB_URL,serverSelectionTimeoutMS=5000)
+                collection=self.mongo_client[database_name][collection_name]
+                df=pd.DataFrame(list(collection.find()))
+            except pymongo.errors.PyMongoError as mongo_error:
+                logging.warning(f"MongoDB unreachable ({mongo_error}); falling back to {LOCAL_DATA_FILE_PATH}")
+                df=pd.read_csv(LOCAL_DATA_FILE_PATH)
+
             if "_id" in df.columns.to_list():
                 df=df.drop(columns=["_id"],axis=1)
             
