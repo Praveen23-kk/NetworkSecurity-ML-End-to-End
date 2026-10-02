@@ -100,3 +100,20 @@ python main.py
 - **`ModelTrainerConfig` fixed:** corrected parameter and constant names (`training_pipeline_config`, `artifact_dir`, `MODEL_TRAINER_DIR_NAME`, etc.) and the `overfitting_underfitting_threshold` spelling.
 - **Data ingestion fallback:** if MongoDB is unreachable (5s timeout), ingestion falls back to reading `Network_Data/phisingData.csv`.
 - **Logging:** added `networksecurity/logging/logger.py`.
+
+---
+
+## Workflow (What We Did So Far)
+```text
+MongoDB / CSV  ->  Data Ingestion  ->  Data Validation  ->  Data Transformation  ->  Model Training  ->  Saved Model
+(push_data.py)     (train/test split)   (schema.yaml check)   (preprocessor + .npy)    (GridSearchCV)      (model.pkl)
+```
+1. **Data push:** `push_data.py` converts `Network_Data/phisingData.csv` to JSON and loads it into MongoDB.
+2. **Data Ingestion:** reads the collection from MongoDB (falls back to the local CSV if unreachable), drops `_id`, and splits into train/test files.
+3. **Data Validation:** checks the data against `data_schema/schema.yaml` (columns, drift) and produces a validation artifact.
+4. **Data Transformation:** builds and saves the preprocessing object and writes transformed train/test arrays as `.npy` files.
+5. **Model Training:** tries several classifiers with grid search, selects the best, computes train/test metrics, and saves the model together with the preprocessor as `NetworkModel`.
+6. **Orchestration:** `main.py` runs all stages in order, with custom logging and `NetworkSecurityException` for error reporting.
+
+## Tools Used
+- **Claude (Claude Code)** and **Antigravity CLI** were used for bug fixing and error handling during development.
