@@ -1,0 +1,21 @@
+[2026-10-13 05:21:57,468] 17 root - INFO - Initiate the data ingestion
+[2026-10-13 05:22:03,028] 44 root - WARNING - MongoDB unreachable (auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6acd729d7c2a24408fe1287d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('auth-shard-00-00.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-01.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-02.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>); falling back to Network_Data\phisingData.csv
+[2026-10-13 05:22:03,975] 73 root - INFO - Performace train test split on the dataframe
+[2026-10-13 05:22:03,975] 75 root - INFO - Exicted split_data_as_train_test method of Data_ingestion class
+[2026-10-13 05:22:03,976] 84 root - INFO - Exporting train and test file path
+[2026-10-13 05:22:04,202] 94 root - INFO - Exported train and test filr path
+[2026-10-13 05:22:04,221] 19 root - INFO - Data Initiation Completed
+[2026-10-13 05:22:04,261] 23 root - INFO - Initiate the data validation
+[2026-10-13 05:22:04,342] 34 root - INFO - Required number of column:31
+[2026-10-13 05:22:04,343] 35 root - INFO - Data frame as columns:31
+[2026-10-13 05:22:04,343] 34 root - INFO - Required number of column:31
+[2026-10-13 05:22:04,343] 35 root - INFO - Data frame as columns:31
+[2026-10-13 05:22:04,706] 25 root - INFO - data validation completed
+[2026-10-13 05:22:04,706] 59 root - INFO - Entered initiate_data_transformation method of DataTransfomration class
+[2026-10-13 05:22:04,706] 61 root - INFO - Starting data transformation
+[2026-10-13 05:22:04,820] 45 root - INFO - Enter get_data_transformer_object method of Transformation class
+[2026-10-13 05:22:04,820] 48 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2026-10-13 05:22:04,839] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-10-13 05:22:04,844] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-10-13 05:22:04,846] 31 root - INFO - data Transformation Completed 
+[2026-10-13 05:22:04,846] 32 root - INFO - Model Training started
