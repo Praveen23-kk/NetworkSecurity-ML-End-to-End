@@ -1,0 +1,41 @@
+[2026-11-04 11:36:59,358] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-11-04 11:36:59,481] 107 dagshub - INFO - Accessing as Praveen23-kk
+[2026-11-04 11:37:00,360] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/Praveen23-kk/NetworkSecurity-ML-End-to-End "HTTP/1.1 200 OK"
+[2026-11-04 11:37:01,283] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-11-04 11:37:01,283] 107 dagshub - INFO - Initialized MLflow to track repo "Praveen23-kk/NetworkSecurity-ML-End-to-End"
+[2026-11-04 11:37:01,283] 107 dagshub - INFO - Repository Praveen23-kk/NetworkSecurity-ML-End-to-End initialized!
+[2026-11-04 11:37:01,283] 17 root - INFO - Initiate the data ingestion
+[2026-11-04 11:37:07,165] 44 root - WARNING - MongoDB unreachable (auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6aeacb855f75d77e56a1ed50, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('auth-shard-00-00.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-01.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-02.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>); falling back to Network_Data\phisingData.csv
+[2026-11-04 11:37:08,211] 73 root - INFO - Performace train test split on the dataframe
+[2026-11-04 11:37:08,211] 75 root - INFO - Exicted split_data_as_train_test method of Data_ingestion class
+[2026-11-04 11:37:08,227] 84 root - INFO - Exporting train and test file path
+[2026-11-04 11:37:08,354] 94 root - INFO - Exported train and test filr path
+[2026-11-04 11:37:08,386] 19 root - INFO - Data Initiation Completed
+[2026-11-04 11:37:08,419] 23 root - INFO - Initiate the data validation
+[2026-11-04 11:37:08,532] 34 root - INFO - Required number of column:31
+[2026-11-04 11:37:08,532] 35 root - INFO - Data frame as columns:31
+[2026-11-04 11:37:08,532] 34 root - INFO - Required number of column:31
+[2026-11-04 11:37:08,532] 35 root - INFO - Data frame as columns:31
+[2026-11-04 11:37:08,834] 25 root - INFO - data validation completed
+[2026-11-04 11:37:08,834] 59 root - INFO - Entered initiate_data_transformation method of DataTransfomration class
+[2026-11-04 11:37:08,834] 61 root - INFO - Starting data transformation
+[2026-11-04 11:37:08,972] 45 root - INFO - Enter get_data_transformer_object method of Transformation class
+[2026-11-04 11:37:08,972] 48 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2026-11-04 11:37:08,995] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 11:37:09,004] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 11:37:09,004] 31 root - INFO - data Transformation Completed 
+[2026-11-04 11:37:09,004] 32 root - INFO - Model Training started
+[2026-11-04 11:41:15,564] 65 root - WARNING - MLflow tracking failed; continuing without tracking: The saved sklearn model references untrusted types. If you are sure loading these types is safe, set the 'skops_trusted_types' parameter when calling 'log_model' or 'save_model' to the list of trusted types. Root error: Untrusted types found in the file: ['sklearn.tree._tree.Tree'].
+
+- sklearn.tree._tree.Tree: sklearn.tree._tree.Tree (the shared node storage for DecisionTree*, RandomForest*, ExtraTrees*, and GradientBoosting* models) stores raw node indices (left_child, right_child, feature) that scikit-learn indexes into without bounds checking. A malicious file can set these to out-of-range values: skops loads the object successfully, but calling .predict() on it can then crash the process (segfault) or read out-of-bounds memory. If you created the file yourself or otherwise fully trust its source, you can load it with trusted=["sklearn.tree._tree.Tree"].
+
+Only add the specific types you have reviewed and trust to the `trusted` argument; avoid passing everything reported by get_untrusted_types() just to make a file load.
+[2026-11-04 11:41:23,146] 65 root - WARNING - MLflow tracking failed; continuing without tracking: The saved sklearn model references untrusted types. If you are sure loading these types is safe, set the 'skops_trusted_types' parameter when calling 'log_model' or 'save_model' to the list of trusted types. Root error: Untrusted types found in the file: ['sklearn.tree._tree.Tree'].
+
+- sklearn.tree._tree.Tree: sklearn.tree._tree.Tree (the shared node storage for DecisionTree*, RandomForest*, ExtraTrees*, and GradientBoosting* models) stores raw node indices (left_child, right_child, feature) that scikit-learn indexes into without bounds checking. A malicious file can set these to out-of-range values: skops loads the object successfully, but calling .predict() on it can then crash the process (segfault) or read out-of-bounds memory. If you created the file yourself or otherwise fully trust its source, you can load it with trusted=["sklearn.tree._tree.Tree"].
+
+Only add the specific types you have reviewed and trust to the `trusted` argument; avoid passing everything reported by get_untrusted_types() just to make a file load.
+[2026-11-04 11:41:23,320] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 11:41:23,437] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 11:41:23,438] 138 root - INFO - model trainer artifacts:ModelTrainerArtifact(trained_model_file_path='Artifacts\\11_04_2026_11_36_41\\model_trainer\\trained_model\\model.pkl', train_metric_artifacts=ClassificationMetricArtifact(f1_score=0.9899482180932074, precision_score=0.9874417662548106, recall_score=0.9924674267100977), test_metric_artifacts=ClassificationMetricArtifact(f1_score=0.9789096697174692, precision_score=0.9700315457413249, recall_score=0.9879518072289156))
+[2026-11-04 11:41:23,446] 37 root - INFO - Model Training artifact created

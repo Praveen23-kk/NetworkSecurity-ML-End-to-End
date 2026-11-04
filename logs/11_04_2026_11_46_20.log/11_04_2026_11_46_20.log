@@ -1,0 +1,31 @@
+[2026-11-04 11:46:36,190] 17 root - INFO - Initiate the data ingestion
+[2026-11-04 11:46:41,614] 44 root - WARNING - MongoDB unreachable (auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6aeacdc48e2a7b933512c9c4, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('auth-shard-00-00.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-01.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-02.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>); falling back to Network_Data\phisingData.csv
+[2026-11-04 11:46:41,989] 73 root - INFO - Performace train test split on the dataframe
+[2026-11-04 11:46:41,989] 75 root - INFO - Exicted split_data_as_train_test method of Data_ingestion class
+[2026-11-04 11:46:42,009] 84 root - INFO - Exporting train and test file path
+[2026-11-04 11:46:42,069] 94 root - INFO - Exported train and test filr path
+[2026-11-04 11:46:42,069] 19 root - INFO - Data Initiation Completed
+[2026-11-04 11:46:42,100] 23 root - INFO - Initiate the data validation
+[2026-11-04 11:46:42,151] 34 root - INFO - Required number of column:31
+[2026-11-04 11:46:42,151] 35 root - INFO - Data frame as columns:31
+[2026-11-04 11:46:42,151] 34 root - INFO - Required number of column:31
+[2026-11-04 11:46:42,151] 35 root - INFO - Data frame as columns:31
+[2026-11-04 11:46:42,318] 25 root - INFO - data validation completed
+[2026-11-04 11:46:42,318] 59 root - INFO - Entered initiate_data_transformation method of DataTransfomration class
+[2026-11-04 11:46:42,318] 61 root - INFO - Starting data transformation
+[2026-11-04 11:46:42,396] 45 root - INFO - Enter get_data_transformer_object method of Transformation class
+[2026-11-04 11:46:42,396] 48 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2026-11-04 11:46:42,411] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 11:46:42,419] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 11:46:42,419] 31 root - INFO - data Transformation Completed 
+[2026-11-04 11:46:42,419] 32 root - INFO - Model Training started
+[2026-11-04 11:50:33,051] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-11-04 11:50:33,173] 107 dagshub - INFO - Accessing as Praveen23-kk
+[2026-11-04 11:50:34,118] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/Praveen23-kk/NetworkSecurity-ML-End-to-End "HTTP/1.1 200 OK"
+[2026-11-04 11:50:35,037] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-11-04 11:50:35,037] 107 dagshub - INFO - Initialized MLflow to track repo "Praveen23-kk/NetworkSecurity-ML-End-to-End"
+[2026-11-04 11:50:35,053] 107 dagshub - INFO - Repository Praveen23-kk/NetworkSecurity-ML-End-to-End initialized!
+[2026-11-04 11:55:35,470] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 11:55:35,532] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 11:55:35,532] 142 root - INFO - model trainer artifacts:ModelTrainerArtifact(trained_model_file_path='Artifacts\\11_04_2026_11_46_24\\model_trainer\\trained_model\\model.pkl', train_metric_artifacts=ClassificationMetricArtifact(f1_score=0.9909525261766798, precision_score=0.9912548301810047, recall_score=0.990650406504065), test_metric_artifacts=ClassificationMetricArtifact(f1_score=0.9753136382031566, precision_score=0.9764991896272285, recall_score=0.9741309620048505))
+[2026-11-04 11:55:35,532] 37 root - INFO - Model Training artifact created

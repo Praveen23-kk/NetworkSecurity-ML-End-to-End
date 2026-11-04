@@ -5,7 +5,7 @@ import os,sys
 import numpy as np 
 import dill
 import pickle
-from sklearn.metrics import r2_score
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
 
 def read_yaml_file(file_path:str)-> dict:
@@ -86,7 +86,7 @@ def evaluate_models(x_train,y_train,x_test,y_test,models,params):
             model.fit(x_train,y_train)
 
             y_test_pred = model.predict(x_test)
-            report[name] = r2_score(y_test,y_test_pred)
+            report[name] = accuracy_score(y_test, y_test_pred)
 
         return report
     except Exception as e:

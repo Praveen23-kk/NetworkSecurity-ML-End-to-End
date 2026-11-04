@@ -13,8 +13,6 @@ from networksecurity.utils.main_utils.utils import load_numpy_array_data,evaluat
 from networksecurity.utils.ml_utils.metric.classifaction_metric import get_classification_score
 
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import r2_score
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import(
     AdaBoostClassifier,
@@ -24,33 +22,59 @@ from sklearn.ensemble import(
 import mlflow 
 
 
+
 class ModelTrainer:
     def __init__(self, model_trainer_config: ModelTrainerConfig, data_transformation_artifact: DataTransformationArtifact):
         try:
             self.model_trainer_config = model_trainer_config
             self.data_transformation_artifact = data_transformation_artifact
+            self._dagshub_initialized = False
             
         except Exception as e:
             raise NetworkSecurityException(e, sys)
         
     def track_mlflow(self,best_model,classificationmetric):
-        with mlflow.start_run():
-            f1_score=classificationmetric.f1_score    
-            precsion_score=classificationmetric.precision_score
-            recall_core=classificationmetric.recall_score
-            
-            mlflow.log_metric("f1_score",f1_score)
-            mlflow.log_metric("precision",precsion_score)
-            mlflow.log_metric("recall_score",recall_core)
-            mlflow.sklearn.log_model(best_model,"model")
+        try:
+            if not self._dagshub_initialized:
+                try:
+                    import dagshub
+
+                    dagshub.init(
+                        repo_owner=os.getenv("DAGSHUB_REPO_OWNER", "Praveen23-kk"),
+                        repo_name=os.getenv(
+                            "DAGSHUB_REPO_NAME", "NetworkSecurity-ML-End-to-End"
+                        ),
+                        mlflow=True,
+                    )
+                    self._dagshub_initialized = True
+                except Exception as tracking_error:
+                    logging.warning(
+                        "DagsHub tracking could not be initialized; using local MLflow: %s",
+                        tracking_error,
+                    )
+                    mlflow.set_tracking_uri("file:./mlruns")
+                    self._dagshub_initialized = True
+
+            with mlflow.start_run():
+                mlflow.log_metric("f1_score", classificationmetric.f1_score)
+                mlflow.log_metric("precision", classificationmetric.precision_score)
+                mlflow.log_metric("recall_score", classificationmetric.recall_score)
+                mlflow.sklearn.log_model(
+                    best_model,
+                    "model",
+                    skops_trusted_types=["sklearn.tree._tree.Tree"],
+                )
+        except Exception as tracking_error:
+            # Tracking is optional and must not prevent a trained model from being saved.
+            logging.warning("MLflow tracking failed; continuing without tracking: %s", tracking_error)
 
     
     def train_model(self, x_train, y_train, x_test, y_test):
         models = {
                 "Random Forest":RandomForestClassifier(verbose=1),
                 "Decision Tree":DecisionTreeClassifier(),
-                "Gradient Bossting":GradientBoostingClassifier(verbose=1),
-                "Logestic Regression":LogisticRegression(verbose=1),
+                "Gradient Boosting":GradientBoostingClassifier(verbose=1),
+                "Logistic Regression":LogisticRegression(verbose=1),
                 "AdaBoost":AdaBoostClassifier(),
             }
         parms={
@@ -64,7 +88,7 @@ class ModelTrainer:
                 # max_features:['sqrt','log2','None'],
                 'n_estimators':[8,16,32,64,128,256]
             },
-            "Gradient Bossting":{
+            "Gradient Boosting":{
                 # 'loss':['log_loss','exponential'],
                 'learning_rate':[.1,0.1,.05,.001],
                 'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
@@ -72,7 +96,7 @@ class ModelTrainer:
                 'n_estimators':[8,16,32,64,128,256]
                 
             },
-            "Logestic Regression":{},
+            "Logistic Regression":{},
             "AdaBoost":{
                 'learning_rate':[.1,0.1,0.5,.001],
                 'n_estimators':[8,16,32,64,128,256]
@@ -109,6 +133,7 @@ class ModelTrainer:
         Network_Model=NetworkModel(preprocessor=preprocessor,model=best_model)
         save_object(self.model_trainer_config.trained_model_file_path,obj=Network_Model)
         
+        save_object("final_models/model.pkl",best_model)
         
         ##model Trainer artifacts
         model_trainer_artifacts=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,

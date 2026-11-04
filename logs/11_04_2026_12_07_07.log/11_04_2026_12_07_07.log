@@ -1,0 +1,35 @@
+[2026-11-04 12:07:28,434] 17 root - INFO - Initiate the data ingestion
+[2026-11-04 12:07:34,100] 44 root - WARNING - MongoDB unreachable (auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms),auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6aead2a80dacf7debbe75ba5, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('auth-shard-00-00.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-00.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-01.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-01.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>, <ServerDescription ('auth-shard-00-02.oytvu.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('auth-shard-00-02.oytvu.mongodb.net:27017: [Errno 11001] getaddrinfo failed (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>); falling back to Network_Data\phisingData.csv
+[2026-11-04 12:07:35,228] 73 root - INFO - Performace train test split on the dataframe
+[2026-11-04 12:07:35,228] 75 root - INFO - Exicted split_data_as_train_test method of Data_ingestion class
+[2026-11-04 12:07:35,229] 84 root - INFO - Exporting train and test file path
+[2026-11-04 12:07:35,300] 94 root - INFO - Exported train and test filr path
+[2026-11-04 12:07:35,302] 19 root - INFO - Data Initiation Completed
+[2026-11-04 12:07:35,334] 23 root - INFO - Initiate the data validation
+[2026-11-04 12:07:35,403] 34 root - INFO - Required number of column:31
+[2026-11-04 12:07:35,403] 35 root - INFO - Data frame as columns:31
+[2026-11-04 12:07:35,404] 34 root - INFO - Required number of column:31
+[2026-11-04 12:07:35,404] 35 root - INFO - Data frame as columns:31
+[2026-11-04 12:07:35,619] 25 root - INFO - data validation completed
+[2026-11-04 12:07:35,620] 59 root - INFO - Entered initiate_data_transformation method of DataTransfomration class
+[2026-11-04 12:07:35,620] 61 root - INFO - Starting data transformation
+[2026-11-04 12:07:35,738] 45 root - INFO - Enter get_data_transformer_object method of Transformation class
+[2026-11-04 12:07:35,738] 48 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2026-11-04 12:07:35,785] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 12:07:35,797] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 12:07:35,797] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 12:07:35,803] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 12:07:35,805] 31 root - INFO - data Transformation Completed 
+[2026-11-04 12:07:35,805] 32 root - INFO - Model Training started
+[2026-11-04 12:11:49,201] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-11-04 12:11:49,260] 107 dagshub - INFO - Accessing as Praveen23-kk
+[2026-11-04 12:11:50,270] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/Praveen23-kk/NetworkSecurity-ML-End-to-End "HTTP/1.1 200 OK"
+[2026-11-04 12:11:51,170] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-11-04 12:11:51,170] 107 dagshub - INFO - Initialized MLflow to track repo "Praveen23-kk/NetworkSecurity-ML-End-to-End"
+[2026-11-04 12:11:51,170] 107 dagshub - INFO - Repository Praveen23-kk/NetworkSecurity-ML-End-to-End initialized!
+[2026-11-04 12:13:30,915] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 12:13:30,930] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 12:13:30,930] 44 root - INFO - Entered the save_object method of MainUtils class
+[2026-11-04 12:13:30,937] 48 root - INFO - Exited the save_object method of MainUtils class
+[2026-11-04 12:13:30,937] 143 root - INFO - model trainer artifacts:ModelTrainerArtifact(trained_model_file_path='Artifacts\\11_04_2026_12_07_12\\model_trainer\\trained_model\\model.pkl', train_metric_artifacts=ClassificationMetricArtifact(f1_score=0.9910877050840592, precision_score=0.9896844660194175, recall_score=0.9924949290060852), test_metric_artifacts=ClassificationMetricArtifact(f1_score=0.9732360097323601, precision_score=0.9685230024213075, recall_score=0.9779951100244498))
+[2026-11-04 12:13:30,940] 37 root - INFO - Model Training artifact created
