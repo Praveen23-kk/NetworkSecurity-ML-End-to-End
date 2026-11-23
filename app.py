@@ -39,6 +39,9 @@ app.add_middleware(
     allow_headers=["*"],    
 )
 
+from fastapi.templating import Jinja2Templates
+templates = Jinja2Templates(directory="./templates")
+
 @app.get("/", tags=["authentication"])
 async def index():
     return RedirectResponse(url="/docs")
@@ -51,6 +54,25 @@ async def train_route():
         return Response("training is successful")
     except Exception as e:
         raise NetworkSecurityException(e, sys)
+    
+    
+@app.get("/predict")
+async def predict_route(request:Request,file:UploadFile=File(...)):
+    try:
+        df=pd.read_csv(file.file)
+        print(df)
+        preprcessor=load_object("final_model/preprccessor.pkl")
+        final_model=load_object("final_model/model.pkl")
+        network_model=network_model(preprcessor=preprcessor,model=final_model)
+        print(df.iloc[0])
+        y_pred=network_model.predict(df)
+        print(y_pred)
+        df["predicted_column"]=y_pred
+        print(df['predicted_column'])
+        table_html = df.to_html(classes='table table-striped')
+        return templates.TemplateResponse("table.html",{"request":request, "table":table_html})
+    except Exception as e:
+        raise NetworkSecurityException(e,sys)   
 
 if __name__ == "__main__":
     app_run(app, host="0.0.0.0", port=8000)
